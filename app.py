@@ -136,6 +136,8 @@ def apply_all_images(azimuth, elevation, thickness, order,uploaded_files):
             print(uploaded_file.name)
             file_bytes = np.asarray(bytearray(uploaded_file.read()), dtype=np.uint8)
             img = cv.imdecode(file_bytes, cv.IMREAD_UNCHANGED)
+            if image.shape[-1] == 4:  # Vérifier s'il y a un canal alpha
+                image = image[:, :, :3]
             uploaded_file.seek(0)  # Reset file pointer for safety
             img_h, img_w, img_c = img.shape
             print(f"img_c={img_c}")
@@ -200,7 +202,8 @@ if uploaded_files:
             # Convert the uploaded file to a numpy array and decode it as an image
             file_bytes = np.asarray(bytearray(uploaded_file.read()), dtype=np.uint8)
             image = cv.imdecode(file_bytes, cv.IMREAD_UNCHANGED)
-            image = cv.cvtColor(image, cv.COLOR_BGRA2BGR)
+            if image.shape[-1] == 4:  # Vérifier s'il y a un canal alpha
+                image = image[:, :, :3]
             uploaded_file.seek(0)  # Reset file pointer for safety
             # Get the resolution (height, width)
             resolution = (image.shape[1], image.shape[0],image.shape[2])  # (width, height)
