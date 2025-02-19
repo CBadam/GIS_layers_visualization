@@ -156,6 +156,8 @@ def apply_all_images(azimuth, elevation, thickness, order,uploaded_files):
             if uploaded_file.name==next_image:
                 file_bytes = np.asarray(bytearray(uploaded_file.read()), dtype=np.uint8)
                 img = cv.imdecode(file_bytes, cv.IMREAD_UNCHANGED)
+                if img.shape[-1] == 4:  # Vérifier s'il y a un canal alpha
+                    img = img[:, :, :3]
                 uploaded_file.seek(0)  # Reset file pointer for safety
                 print(uploaded_file.name)
                 assert img is not None, "File could not be read."
