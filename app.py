@@ -138,6 +138,7 @@ def apply_all_images(azimuth, elevation, thickness, order,uploaded_files):
             img = cv.imdecode(file_bytes, cv.IMREAD_UNCHANGED)
             uploaded_file.seek(0)  # Reset file pointer for safety
             img_h, img_w, img_c = img.shape
+            print(f"img_c={img_c}")
             assert img is not None, "File could not be read."
             final_img,middle_bottom_point = apply_one_image(img,azimuth, elevation,thickness)
             h, w, c = final_img.shape
