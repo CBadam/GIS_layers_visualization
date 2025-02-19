@@ -199,11 +199,11 @@ if uploaded_files:
         try:
             # Convert the uploaded file to a numpy array and decode it as an image
             file_bytes = np.asarray(bytearray(uploaded_file.read()), dtype=np.uint8)
-            image_rgb = cv.imdecode(file_bytes, cv.IMREAD_UNCHANGED)
-            image = cv2.cvtColor(image_rgb, cv2.COLOR_BGR2BGRA)
+            image = cv.imdecode(file_bytes, cv.IMREAD_UNCHANGED)
+            # image = cv2.cvtColor(image_rgb, cv2.COLOR_BGR2BGRA)
             uploaded_file.seek(0)  # Reset file pointer for safety
             # Get the resolution (height, width)
-            resolution = (image.shape[1], image.shape[0])  # (width, height)
+            resolution = (image.shape[1], image.shape[0],image.shape[2])  # (width, height)
             resolutions.append(resolution)
         except Exception as e:
             st.error(f"Error processing file {uploaded_file.name}: {e}")
