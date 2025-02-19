@@ -200,7 +200,7 @@ if uploaded_files:
             # Convert the uploaded file to a numpy array and decode it as an image
             file_bytes = np.asarray(bytearray(uploaded_file.read()), dtype=np.uint8)
             image = cv.imdecode(file_bytes, cv.IMREAD_UNCHANGED)
-            image = cv.cvtColor(image, cv2.COLOR_BGRA2BGR)
+            image = cv.cvtColor(image, cv.COLOR_BGRA2BGR)
             uploaded_file.seek(0)  # Reset file pointer for safety
             # Get the resolution (height, width)
             resolution = (image.shape[1], image.shape[0],image.shape[2])  # (width, height)
